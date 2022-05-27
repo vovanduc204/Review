@@ -1,0 +1,33 @@
+C# 8:
+readonly of struct
+pattern matching
+property patterns
+pattern tuple
+pattern point
+using
+static local function
+ref struct
+list async implement awaith foreach
+asynchronous disposable implement interface IAsyncDisposable
+
+C# 9: 
+Init-only Property
+Init accessor and field readonly
+record
+positional record
+with
+top-level programs
+target typing and new
+
+C#10:
+File Scoped Namespaces
+Lambda Improvements var toInt = ( string s ) => int . Parse (s)
+Global using directive
+Null Parameter Checking
+Constant Interpolated strings
+
+C#11:
+Generic Attribute
+NewLine in Non-verbatim Interpolation
+NotNull checks
+List and Slice Pattern
