@@ -1,0 +1,46 @@
+﻿@model UserViewModel
+@using MC.Web.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form asp-controller="User" asp-action="EditUser" data-ajax-complete="OnComplete">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit User</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <input asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-12">
+                    <input asp-for="FirstName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-12">
+                    <input asp-for="LastName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-12">
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-12">
+                    <input asp-for="Address" class="form-control" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <input type="submit" value="Edit" class="btn btn-primary" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</form>  
