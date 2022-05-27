@@ -34,3 +34,23 @@ List and Slice Pattern
 
 
 https://codelearn.io/sharing/su-dung-automapper-trong-csharp
+
+https://www.dotnetcoban.com/2020/04/popular-knowedge-and-good-libraries.html
+
+string representation = "N/A";
+if ((c != null && c.GetDependentValue(out object obj)) == true)
+{
+   representation = obj.ToString(); // undesired error
+}
+
+// Or, using ?.
+if (c?.GetDependentValue(out object obj) == true)
+{
+   representation = obj.ToString(); // undesired error
+}
+
+// Or, using ??
+if (c?.GetDependentValue(out object obj) ?? false)
+{
+   representation = obj.ToString(); // undesired error
+}
