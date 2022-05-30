@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework.Core", "Framework.Core", "{82D52106-4DEF-4329-B1D7-9ADB743EC6C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EShopping", "EShopping", "{F1256D6F-5424-4E5A-ACD4-32F90B929338}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{FCA04A2B-D23D-4E3D-B858-35ACDAF6C5CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepositoryEntityFramework", "src\GenericRepositoryEntityFramework\GenericRepositoryEntityFramework.csproj", "{AFFBDAD5-124F-45E0-B228-76B269190CE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopping.Core", "src\EShopping.Core\EShopping.Core.csproj", "{1F243D52-DCD7-429F-9E7A-F65DC9853EBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShopping.UnitTests", "src\EShopping.UnitTests\EShopping.UnitTests.csproj", "{28A8B45E-B214-42BE-83DB-62583526BE65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShoppingWebAPI", "src\EShoppingWebAPI\EShoppingWebAPI.csproj", "{41B051E1-EC12-4D4E-9615-674911A2827E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCA04A2B-D23D-4E3D-B858-35ACDAF6C5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCA04A2B-D23D-4E3D-B858-35ACDAF6C5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCA04A2B-D23D-4E3D-B858-35ACDAF6C5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCA04A2B-D23D-4E3D-B858-35ACDAF6C5CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFBDAD5-124F-45E0-B228-76B269190CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFBDAD5-124F-45E0-B228-76B269190CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFBDAD5-124F-45E0-B228-76B269190CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFBDAD5-124F-45E0-B228-76B269190CE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F243D52-DCD7-429F-9E7A-F65DC9853EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F243D52-DCD7-429F-9E7A-F65DC9853EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F243D52-DCD7-429F-9E7A-F65DC9853EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F243D52-DCD7-429F-9E7A-F65DC9853EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A8B45E-B214-42BE-83DB-62583526BE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A8B45E-B214-42BE-83DB-62583526BE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A8B45E-B214-42BE-83DB-62583526BE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A8B45E-B214-42BE-83DB-62583526BE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B051E1-EC12-4D4E-9615-674911A2827E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B051E1-EC12-4D4E-9615-674911A2827E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B051E1-EC12-4D4E-9615-674911A2827E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B051E1-EC12-4D4E-9615-674911A2827E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCA04A2B-D23D-4E3D-B858-35ACDAF6C5CD} = {82D52106-4DEF-4329-B1D7-9ADB743EC6C1}
+		{AFFBDAD5-124F-45E0-B228-76B269190CE4} = {82D52106-4DEF-4329-B1D7-9ADB743EC6C1}
+		{1F243D52-DCD7-429F-9E7A-F65DC9853EBE} = {F1256D6F-5424-4E5A-ACD4-32F90B929338}
+		{28A8B45E-B214-42BE-83DB-62583526BE65} = {F1256D6F-5424-4E5A-ACD4-32F90B929338}
+		{41B051E1-EC12-4D4E-9615-674911A2827E} = {F1256D6F-5424-4E5A-ACD4-32F90B929338}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B6F2C67-2808-4ECB-92EC-3E7697FCC0AD}
+	EndGlobalSection
+EndGlobal

@@ -54,12 +54,3 @@ if (c?.GetDependentValue(out object obj) ?? false)
 {
    representation = obj.ToString(); // undesired error
 }
-
-with new project ddd eshoping
-
-cd project data
-PM> dotnet ef --startup-project ../EShoppingWebAPI migrations add Initial
-Build started...
-Build succeeded.
-The name 'Initial' is used by an existing migration.
-PM> dotnet ef --startup-project ../EShoppingWebAPI database update
