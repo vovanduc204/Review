@@ -38,9 +38,7 @@ namespace BookWeb
            ));
 
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
-
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -64,6 +62,16 @@ namespace BookWeb
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
+
+            //services.AddIdentity<IdentityUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
+            //.AddEntityFrameworkStores<ApplicationDbContext>()
+            //.AddDefaultUI()
+            //.AddDefaultTokenProviders();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,6 +114,17 @@ namespace BookWeb
                     name: "default",
                     pattern: "{area=Customers}/{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseMvc(routes =>
+              {
+                  routes.MapRoute(
+                      name: "areaRoute",
+                      template: "{area:exists}/{controller=Home}/{action=Index}");
+
+                  routes.MapRoute(
+                      name: "default",
+                      template: "{controller=Home}/{action=Index}/{id?}");
+              });
         }
     }
 }
