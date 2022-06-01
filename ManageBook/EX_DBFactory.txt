@@ -1,0 +1,65 @@
+https://codingblast.com/entityframework-core-idesigntimedbcontextfactory/
+
+
+Unable to create an object of type ‘CodingBlastDbContext’. Add an implementation of ‘IDesignTimeDbContextFactory’ to the project, or see https://go.microsoft.com/fwlink/?linkid=851728 for additional patterns supported at design time.
+
+ 
+
+Solution
+
+So you need to implement this interface, and you are not sure how to do it.
+
+You can add a class that implements IDesignTimeDbContextFactory inside of your Web project.
+
+Here is the sample code:
+
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CodingBlastDbContext>
+{
+    public CodingBlastDbContext CreateDbContext(string[] args)
+    {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        var builder = new DbContextOptionsBuilder<CodingBlastDbContext>();
+
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        builder.UseSqlServer(connectionString);
+
+        return new CodingBlastDbContext(builder.Options);
+    }
+}
+
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CodingBlastDbContext>
+{
+    public CodingBlastDbContext CreateDbContext(string[] args)
+    {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+ 
+        var builder = new DbContextOptionsBuilder<CodingBlastDbContext>();
+ 
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+ 
+        builder.UseSqlServer(connectionString);
+ 
+        return new CodingBlastDbContext(builder.Options);
+    }
+}
+ 
+
+Then, navigate to your Database project and run the following from command line:
+
+dotnet ef migrations add InitialMigration -s ../Web/
+dotnet ef database update -s ../Web/
+1
+2
+dotnet ef migrations add InitialMigration -s ../Web/
+dotnet ef database update -s ../Web/
+-s stands for startup project and ../Web/ is the location of my web/startup project.
+
+ 
