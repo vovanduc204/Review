@@ -27,5 +27,7 @@ namespace SM.InfractureLayer.Repositories
 
             base.Add(entity);
         }
+
+      
     }
 }

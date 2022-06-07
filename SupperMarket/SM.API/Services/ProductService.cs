@@ -14,41 +14,50 @@ namespace SM.API.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
 
-
         public Task<IEnumerable<Product>> ListAsync()
         {
-            return _productRepository.GetAllAsync();
+            return _unitOfWork.ProductRepository.GetAllAsync();
+        }
+
+        public Product GetById(int id)
+        {
+            return _unitOfWork.ProductRepository.GetById(id);
         }
 
         public async Task<Product> SaveAsync(Product product)
         {
-            await _productRepository.AddAsync(product);
+            await _unitOfWork.ProductRepository.AddAsync(product);
             await _unitOfWork.CompleteAsync();
-
-            return null;
+            return product;
         }
 
         public async Task<Product> UpdateAsync(int id, Product product)
         {
-            //await _productRepository.Update(product);
+            var existingProduct = await _unitOfWork.ProductRepository.GetByIdAsync(id);
+            var existingCategory = await _unitOfWork.CategoryRepository.GetByIdAsync(product.CategoryId); // if category not found in table will be not update
+            if (existingCategory!=null) 
+                if (existingProduct!=null)
+                    _unitOfWork.ProductRepository.Update(product);
+                    await _unitOfWork.CompleteAsync();
 
-            return null;
+            return product;
         }
 
-
-        public Task<Product> DeleteAsync(int id)
+        public async Task<Product> Delete(int id)
         {
-            throw new NotImplementedException();
+            var existingProduct = await _unitOfWork.ProductRepository.GetByIdAsync(id);
+            _unitOfWork.ProductRepository.Remove(existingProduct);
+
+            await _unitOfWork.CompleteAsync().ConfigureAwait(false);
+
+            return existingProduct;
+
         }
     }
 }

@@ -15,6 +15,7 @@ namespace SM.DomainLayer.Interfaces.Services
         Task<IEnumerable<Product>> ListAsync();
         Task<Product> SaveAsync(Product product);
         Task<Product> UpdateAsync(int id, Product product);
-        Task<Product> DeleteAsync(int id);
+        Task<Product> Delete(int id);
+        Product GetById(int id);
     }
 }

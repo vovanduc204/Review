@@ -18,11 +18,12 @@ namespace SM.DomainLayer.Entities
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
 
-        public Product(string name , short quantityInPackage, int categoryId)
+        public Product(string name , short quantityInPackage, int categoryId, EUnitOfMeasurement unitOfMeasurement)
         {
             Name = name;
             QuantityInPackage = quantityInPackage;
             CategoryId = categoryId;
+            UnitOfMeasurement = unitOfMeasurement;
         }
 
         protected Product()

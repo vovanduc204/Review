@@ -17,7 +17,6 @@ namespace SM.InfractureLayer.Repositories
 
         private readonly DbSet<TEntity> _dbSet;
 
-
         public Repository(DbContext context)
         {
             Context = context;
@@ -39,16 +38,12 @@ namespace SM.InfractureLayer.Repositories
             _dbSet.Add(entity);
         }
 
-        //
         public async Task<TEntity> AddAsync(TEntity entity)
         {
-            //Context.Set<entity>().Add(entity);
-
-            //await Context.SaveChangesAsync();
-
+            Context.Set<TEntity>().Add(entity);
+            await Context.SaveChangesAsync();
             return entity;
         }
-
 
         public virtual void Remove(TEntity entity)
         {
@@ -60,10 +55,19 @@ namespace SM.InfractureLayer.Repositories
             _dbSet.Update(entity);
         }
 
+        public virtual TEntity GetById(Expression<Func<TEntity, bool>> match)
+        {
+            return Context.Set<TEntity>().SingleOrDefault(match);
+        }
 
         public async Task<TEntity> GetByIdAsync(object id)
         {
             return await _dbSet.FindAsync(id).ConfigureAwait(false);
+        }
+
+        public IQueryable<TEntity> GetAll()
+        {
+            return Context.Set<TEntity>();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -156,7 +160,5 @@ namespace SM.InfractureLayer.Repositories
         {
             return query.Skip((queryObjectParams.PageNumber - 1) * queryObjectParams.PageSize).Take(queryObjectParams.PageSize);
         }
-
-       
     }
 }

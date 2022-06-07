@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SM.API.ViewModels;
 using SM.DomainLayer.Comunication.Response;
+using SM.DomainLayer.Core.SharedKernel.Models;
 using SM.DomainLayer.Entities;
 using SM.DomainLayer.Interfaces.Services;
 using System;
@@ -24,39 +25,27 @@ namespace SM.API.Controllers
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Lists all categories.
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CategoryViewModel>), 200)]
-        public IActionResult ListAll()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                return Ok(_mapper.Map<List<CategoryViewModel>>(_categoryService.ListAsync()));
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return Ok(new List<CategoryViewModel>());
-            }
+            var categories = await _categoryService.ListAsync();
+            if (categories == null) return NotFound();
+
+            var mappedCategories = _mapper.Map<IEnumerable<CategoryViewModel>>(categories);
+
+            return Ok(mappedCategories);
         }
 
-        /// <summary>
-        /// Saves a new category.
-        /// </summary>
-        /// <param name="resource">Category data.</param>
-        /// <returns>Response for the request.</returns>   
-        //[Authorize]
         [HttpPost]
-        [ProducesResponseType(typeof(CategoryViewModel), 201)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(CategoryViewModel), 200)]
         public async Task<IActionResult> PostAsync([FromBody] CategoryViewModel resource)
         {
             var category = _mapper.Map<CategoryViewModel, Category>(resource);
             var result = await _categoryService.SaveAsync(category.Name);
-            return Ok(result);
+            return Ok(new Response { Status = "Success", Message = "Category created successfully!" });
         }
     }
 }

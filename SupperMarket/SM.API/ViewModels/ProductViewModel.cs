@@ -21,6 +21,7 @@ namespace SM.API.ViewModels
         public string Name { get; set; }
         public short Quantity { get; set; }
         public byte Unit { get; set; }
+        public byte UnitOfMeasurement { get; set; }
         public int CategoryId { get; set; }
     }
 }

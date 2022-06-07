@@ -9,6 +9,10 @@ namespace SM.DomainLayer.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
-
+        public Order Get(int idOrder)
+        {
+            var query = GetAll().FirstOrDefault(b => b.Id == idOrder);
+            return query;
+        }
     }
 }

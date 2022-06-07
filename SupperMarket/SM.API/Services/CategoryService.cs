@@ -13,25 +13,22 @@ namespace SM.API.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public CategoryService(IUnitOfWork unitOfWork)
         {
-            _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Category>> ListAsync()
         {
-            return await _categoryRepository.GetAllAsync();
+            return await _unitOfWork.CategoryRepository.GetAllAsync();
         }
 
         public async Task<Category> SaveAsync(string name)
         {
             var _category = new Category(name);
-            _categoryRepository.AddSync(_category);
+            _unitOfWork.CategoryRepository.AddSync(_category);
             await _unitOfWork.CompleteAsync();
-
             return _category;
         }
     }

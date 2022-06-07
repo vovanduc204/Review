@@ -9,5 +9,10 @@ namespace SM.DomainLayer.Interfaces
 {
     public interface IProductRepository : IRepository<Product>
     {
+        public Product GetById(int idProduct)
+        {
+            var query = GetAll().FirstOrDefault(b => b.Id == idProduct);
+            return query;
+        }
     }
 }

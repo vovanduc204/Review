@@ -91,7 +91,7 @@ namespace SM.API
             //Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
-            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
 
         }
 

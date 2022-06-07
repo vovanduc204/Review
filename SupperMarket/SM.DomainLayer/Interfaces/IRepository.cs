@@ -20,7 +20,11 @@ namespace SM.DomainLayer.Interfaces
 
         void Update(TEntity entity);
 
+        TEntity GetById(Expression<Func<TEntity, bool>> match);
+
         Task<TEntity> GetByIdAsync(object id);
+
+        IQueryable<TEntity> GetAll();
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 
