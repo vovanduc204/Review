@@ -41,11 +41,14 @@ namespace SM.API.Services
         {
             var existingProduct = await _unitOfWork.ProductRepository.GetByIdAsync(id);
             var existingCategory = await _unitOfWork.CategoryRepository.GetByIdAsync(product.CategoryId); // if category not found in table will be not update
-            if (existingCategory!=null) 
-                if (existingProduct!=null)
+            if (existingCategory!=null)
+            {
+                if (existingProduct != null)
+                {
                     _unitOfWork.ProductRepository.Update(product);
                     await _unitOfWork.CompleteAsync();
-
+                }    
+            }      
             return product;
         }
 
@@ -59,5 +62,6 @@ namespace SM.API.Services
             return existingProduct;
 
         }
+
     }
 }

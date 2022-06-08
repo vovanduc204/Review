@@ -160,5 +160,6 @@ namespace SM.InfractureLayer.Repositories
         {
             return query.Skip((queryObjectParams.PageNumber - 1) * queryObjectParams.PageSize).Take(queryObjectParams.PageSize);
         }
+
     }
 }

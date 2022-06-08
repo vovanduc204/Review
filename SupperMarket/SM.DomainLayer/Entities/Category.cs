@@ -18,6 +18,5 @@ namespace SM.DomainLayer.Entities
             Name = name;
         }
 
-
     }
 }

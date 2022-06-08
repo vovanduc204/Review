@@ -14,7 +14,6 @@ namespace SM.API.Helpers
     {
         public AutoMapperProfile()
         {
-
             CreateMap<Category, CategoryViewModel>();
            
             CreateMap<CreateProductViewModel, Product>();
@@ -38,6 +37,7 @@ namespace SM.API.Helpers
                );
            });
 
+            CreateMap<OrderViewModel, Order>();
 
 
             CreateMap<OrderItem, OrderItemViewModel>();

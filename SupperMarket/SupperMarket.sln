@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.DomainLayer", "SM.Domain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.InfractureLayer", "SM.InfractureLayer\SM.InfractureLayer.csproj", "{FD074923-470E-4584-A030-1041E57674B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unitest", "Unitest\Unitest.csproj", "{305A38A4-348A-46A7-A733-CA35A453DB37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FD074923-470E-4584-A030-1041E57674B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD074923-470E-4584-A030-1041E57674B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD074923-470E-4584-A030-1041E57674B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305A38A4-348A-46A7-A733-CA35A453DB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305A38A4-348A-46A7-A733-CA35A453DB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305A38A4-348A-46A7-A733-CA35A453DB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305A38A4-348A-46A7-A733-CA35A453DB37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,6 +16,7 @@ using SM.API.Services;
 using SM.DomainLayer.Interfaces;
 using SM.DomainLayer.Interfaces.Services;
 using SM.InfractureLayer;
+using SM.InfractureLayer.Extension;
 using SM.InfractureLayer.Repositories;
 using System;
 using System.Collections.Generic;
@@ -91,7 +92,9 @@ namespace SM.API
             //Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
+
+            services.AddCustomSwagger();
 
         }
 
@@ -113,6 +116,7 @@ namespace SM.API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCustomSwagger();
 
             app.UseEndpoints(endpoints =>
             {

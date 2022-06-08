@@ -22,12 +22,10 @@ namespace SM.DomainLayer.Entities
         private List<OrderItem> _orderItems;
         public ICollection<OrderItem> OrderItems { get { return _orderItems.AsReadOnly(); } }
 
-
         protected Order() // For Entity Framework Core
         {
             _orderItems = new List<OrderItem>();
         }
-
 
         /// <summary>
         /// Throws Exception if Maximum price has been reached, or if no Order Item has been added to this Order
@@ -63,7 +61,6 @@ namespace SM.DomainLayer.Entities
             foreach (var orderItem in orderItems)
                 AddOrderItem(orderItem, maximumPriceLimit);
         }
-
 
 
         /// <summary>
