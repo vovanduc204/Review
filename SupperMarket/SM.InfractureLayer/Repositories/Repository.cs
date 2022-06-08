@@ -113,8 +113,6 @@ namespace SM.InfractureLayer.Repositories
             return await GetOrderedPageQueryResultAsync(queryObjectParams, query).ConfigureAwait(false);
         }
 
-
-
         public virtual async Task<QueryResult<TEntity>> GetPageAsync<TProperty>(QueryObjectParams queryObjectParams, Expression<Func<TEntity, bool>> predicate, List<Expression<Func<TEntity, TProperty>>> includes = null)
         {
             IQueryable<TEntity> query = _dbSet;

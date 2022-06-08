@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SM.DomainLayer.Core.SharedKernel.Models;
 using SM.DomainLayer.Entities;
 using SM.DomainLayer.Interfaces;
 using SM.DomainLayer.Interfaces.Services;
@@ -57,5 +58,10 @@ namespace SM.API.Services
             return existingOrder;
         }
 
+        public async Task<QueryResult<Order>> ListQueryAsync(QueryObjectParams queryObject)
+        {
+            QueryResult<Order> queryResult = await _unitOfWork.OrderRepository.GetPageAsync(queryObject).ConfigureAwait(false);
+            return queryResult;
+        }
     }
 }

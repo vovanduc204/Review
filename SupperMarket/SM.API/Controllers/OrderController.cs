@@ -18,11 +18,6 @@ namespace SM.API.Controllers
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
 
-        public OrderController(IOrderService orderService)
-        {
-            _orderService = orderService;
-        }
-
         public OrderController(IOrderService orderService, IMapper mapper)
         {
             _orderService = orderService;
@@ -33,7 +28,6 @@ namespace SM.API.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> GetOrder(int id)
         {
             var order = await _orderService.GetById(id);
@@ -46,10 +40,8 @@ namespace SM.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> GetAll()
         {
             var orders = await _orderService.ListAsync();
@@ -59,6 +51,21 @@ namespace SM.API.Controllers
             var mappedOrders = _mapper.Map<IEnumerable<OrderViewModel>>(orders);
 
             return Ok(new QueryResult<OrderViewModel>(mappedOrders, mappedOrders.Count()));
+        }
+
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPaged([FromBody] QueryObjectParams queryObject)
+        {
+            var queryResult = await _orderService.ListQueryAsync(queryObject);
+
+            if (queryResult is null) return NotFound();
+
+            var mappedOrders = _mapper.Map<IEnumerable<OrderViewModel>>(queryResult.Entities);
+
+            return Ok(new QueryResult<OrderViewModel>(mappedOrders, queryResult.TotalCount));
         }
 
         [HttpPost]
@@ -77,7 +84,6 @@ namespace SM.API.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var order = await _orderService.GetById(id);
