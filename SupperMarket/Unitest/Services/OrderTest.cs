@@ -17,19 +17,12 @@ namespace Unitest.Services
     {
 
         public Mock<IOrderService> mock = new Mock<IOrderService>();
-        private static IMapper _mapper;
 
         public OrderTest()
         {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new AutoMapperProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
+          
         }
+
+     
     }
 }

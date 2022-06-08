@@ -9,5 +9,6 @@ namespace SM.API.ViewModels
         public int ProductId { get; set; }
 
         public Price Price { get; set; }
+
     }
 }

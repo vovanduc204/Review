@@ -29,7 +29,7 @@ namespace SM.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetListCategory()
         {
             var categories = await _categoryService.ListAsync();
             if (categories == null) return NotFound();
@@ -41,7 +41,7 @@ namespace SM.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CategoryViewModel), 200)]
-        public async Task<IActionResult> PostAsync([FromBody] CategoryViewModel resource)
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryViewModel resource)
         {
             var category = _mapper.Map<CategoryViewModel, Category>(resource);
             var result = await _categoryService.SaveAsync(category.Name);

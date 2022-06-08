@@ -28,7 +28,7 @@ namespace SM.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetListProducts()
         {
             var products = await _productService.ListAsync();
             if (products == null) return NotFound();
@@ -40,7 +40,7 @@ namespace SM.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Add([FromBody] CreateProductViewModel createProductViewModel)
+        public async Task<IActionResult> CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace SM.API.Controllers
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
-        public IActionResult GetById([FromRoute] int id)
+        public IActionResult GetProductById([FromRoute] int id)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace SM.API.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(int id, [FromBody] CreateProductViewModel createProductViewModel)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] CreateProductViewModel createProductViewModel)
         {
             var product = _mapper.Map<CreateProductViewModel, Product>(createProductViewModel);
             await _productService.UpdateAsync(id, product);
@@ -84,10 +84,11 @@ namespace SM.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
             await _productService.Delete(id);
             return Ok(new Response { Status = "Success", Message = "Product deleted successfully!" });
         }
+
     }
 }

@@ -7,6 +7,8 @@ namespace SM.API.ViewModels
 {
     public class CategoryViewModel
     {
+        public int Id { get; private set; }
         public string Name { get; set; }
+
     }
 }

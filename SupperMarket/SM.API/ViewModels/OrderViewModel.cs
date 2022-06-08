@@ -15,6 +15,7 @@ namespace SM.API.ViewModels
 
         public DateTime OrderDate { get; set; }
 
-        public IEnumerable<OrderItemViewModel> OrderItems { get; set; }
+        public ICollection<OrderItemViewModel> OrderItemsViewModel { get;}
+
     }
 }

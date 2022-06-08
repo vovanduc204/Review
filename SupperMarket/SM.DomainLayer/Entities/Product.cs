@@ -29,5 +29,15 @@ namespace SM.DomainLayer.Entities
         protected Product()
         {
         }
+
+        // unit test
+        public Product(int id, string name, short quantityInPackage, EUnitOfMeasurement unitOfMeasurement, int categoryId)
+        {
+            Id = id;
+            Name = name;
+            QuantityInPackage = quantityInPackage;
+            UnitOfMeasurement = unitOfMeasurement;
+            CategoryId = categoryId;
+        }
     }
 }

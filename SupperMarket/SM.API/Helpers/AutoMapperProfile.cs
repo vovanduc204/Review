@@ -15,34 +15,29 @@ namespace SM.API.Helpers
         public AutoMapperProfile()
         {
             CreateMap<Category, CategoryViewModel>();
-           
-            CreateMap<CreateProductViewModel, Product>();
 
-            CreateMap<CategoryViewModel, Category>();
+            CreateMap<CategoryViewModel, Category>()
+            .ForMember(des => des.Products,
+            act => act.Ignore());
 
             CreateMap<CreateProductViewModel, Product>()
-            .ForMember(des => des.QuantityInPackage, 
-            act => act.MapFrom(src => src.Quantity));
+            .ForMember(des => des.Category,
+            act => act.MapFrom(src => src.CategoryViewModel));
 
-            CreateMap<Product, ProductViewModel>()
-            .ForMember(des => des.QuantityInPackage,
-            act => act.MapFrom(src => src.QuantityInPackage))
-            .ForMember(des => des.UnitOfMeasurement,
-            act => act.MapFrom(src => src.UnitOfMeasurement));
+            CreateMap<Product, ProductViewModel>();
 
             CreateMap<OrderSaveRequestViewModel, Order>()
            .ConstructUsing((src, res) =>
            {
                return new Order(src.ShippingAdress, orderItems: res.Mapper.Map<IEnumerable<OrderItem>>(src.OrderItemsDtoModel)
                );
-           });
+           })
+           .ForMember(des => des.OrderItems,
+            act => act.Ignore());
 
-            CreateMap<OrderViewModel, Order>();
-
-
-            CreateMap<OrderItem, OrderItemViewModel>();
-
-            CreateMap<OrderItemSaveRequestViewModel, OrderItem>();
+            CreateMap<OrderViewModel, Order>()
+            .ForMember(des => des.OrderItems,
+            act => act.Ignore());
 
             CreateMap<PriceSaveRequestViewModel, Price>()
             .ConvertUsing(x => new Price(x.Amount.Value, x.Unit.Value));

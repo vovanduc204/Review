@@ -28,7 +28,7 @@ namespace SM.API.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetOrder(int id)
+        public async Task<IActionResult> GetOrderById(int id)
         {
             var order = await _orderService.GetById(id);
 
@@ -42,7 +42,7 @@ namespace SM.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetListOrders()
         {
             var orders = await _orderService.ListAsync();
 
@@ -57,7 +57,7 @@ namespace SM.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPaged([FromBody] QueryObjectParams queryObject)
+        public async Task<IActionResult> GetPageOrders([FromBody] QueryObjectParams queryObject)
         {
             var queryResult = await _orderService.ListQueryAsync(queryObject);
 
@@ -71,7 +71,7 @@ namespace SM.API.Controllers
         [HttpPost]
         [Route("Add")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Add([FromBody] OrderSaveRequestViewModel orderResource)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderSaveRequestViewModel orderResource)
         {
             var order = _mapper.Map<OrderSaveRequestViewModel, Order>(orderResource);
 
@@ -84,7 +84,7 @@ namespace SM.API.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> DeleteOrder([FromRoute] int id)
         {
             var order = await _orderService.GetById(id);
 
