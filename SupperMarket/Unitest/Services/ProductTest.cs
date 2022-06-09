@@ -28,27 +28,7 @@ namespace Unitest.Services
         }
 
         [Fact]
-        public void GetEmployeebyId()
-        {
-            var product = new Product(3, "5555", 0, 0, 2);
-            mock.Setup(p => p.GetById(3)).Returns(product);
-
-            //auto mapper configuration
-            var mockMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapperProfile());
-            });
-
-            var mapper = mockMapper.CreateMapper();
-
-            ProductController productObject = new ProductController(mock.Object, mapper);
-            var result = productObject.GetProductById(3);
-
-            Assert.True(product.Equals(result));
-        }
-
-        [Fact]
-        public async void GetItemsReturnsOk()
+        public async void GetListProducsReturnOk()
         {
             // Arrange
 
