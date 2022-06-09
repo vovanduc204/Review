@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Entities
 {
-    public class Category : IAggregateRoot
+    public class Category
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
-        public IList<Product> Products { get; private set; } = new List<Product>();
 
         public Category(string name)
         {
             Name = name;
         }
 
+        public Category(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }

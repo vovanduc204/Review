@@ -8,36 +8,36 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Entities
 {
-    public class Product : IAggregateRoot
+    public class Product
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public short QuantityInPackage { get; private set; }
-        public EUnitOfMeasurement UnitOfMeasurement { get; private set; }
-
-        public int CategoryId { get; private set; }
-        public Category Category { get; private set; }
-
-        public Product(string name , short quantityInPackage, int categoryId, EUnitOfMeasurement unitOfMeasurement)
-        {
-            Name = name;
-            QuantityInPackage = quantityInPackage;
-            CategoryId = categoryId;
-            UnitOfMeasurement = unitOfMeasurement;
-        }
-
-        protected Product()
+        public Product()
         {
         }
 
-        // unit test
-        public Product(int id, string name, short quantityInPackage, EUnitOfMeasurement unitOfMeasurement, int categoryId)
+        public Product(int id)
+        {
+            Id = id;
+        }
+
+        public Product(int id, string name, string description, decimal price, string pictureUrl, int categoryId, Category category)
         {
             Id = id;
             Name = name;
-            QuantityInPackage = quantityInPackage;
-            UnitOfMeasurement = unitOfMeasurement;
+            Description = description;
+            Price = price;
+            PictureUrl = pictureUrl;
             CategoryId = categoryId;
+            Category = category;
         }
+
+        public int Id { get; private set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string PictureUrl { get; set; }
+        public int CategoryId { get; private set; }
+        public Category Category { get; private set; }
+
+       
     }
 }

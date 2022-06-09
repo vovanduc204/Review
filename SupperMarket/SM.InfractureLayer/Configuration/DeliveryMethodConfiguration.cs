@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace SM.InfractureLayer.Configuration
 {
-    public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
+    public class DeliveryMethodConfiguration : IEntityTypeConfiguration<DeliveryMethod>
     {
-        public void Configure(EntityTypeBuilder<OrderItem> builder)
+        public void Configure(EntityTypeBuilder<DeliveryMethod> builder)
         {
-            builder.OwnsOne(i => i.ItemOrdered, io => { io.WithOwner(); });
-
-            builder.Property(i => i.Price)
+            builder.Property(d => d.Price)
                 .HasColumnType("decimal(18,2)");
         }
     }

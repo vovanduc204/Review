@@ -14,33 +14,8 @@ namespace SM.API.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<Category, CategoryViewModel>();
-
-            CreateMap<CategoryViewModel, Category>()
-            .ForMember(des => des.Products,
-            act => act.Ignore());
-
-            CreateMap<CreateProductViewModel, Product>()
-            .ForMember(des => des.Category,
-            act => act.MapFrom(src => src.CategoryViewModel));
-
-            CreateMap<Product, ProductViewModel>();
-
-            CreateMap<OrderSaveRequestViewModel, Order>()
-           .ConstructUsing((src, res) =>
-           {
-               return new Order(src.ShippingAdress, orderItems: res.Mapper.Map<IEnumerable<OrderItem>>(src.OrderItemsDtoModel)
-               );
-           })
-           .ForMember(des => des.OrderItems,
-            act => act.Ignore());
-
-            CreateMap<OrderViewModel, Order>()
-            .ForMember(des => des.OrderItems,
-            act => act.Ignore());
-
-            CreateMap<PriceSaveRequestViewModel, Price>()
-            .ConvertUsing(x => new Price(x.Amount.Value, x.Unit.Value));
+           
+            
         }
     }
 }

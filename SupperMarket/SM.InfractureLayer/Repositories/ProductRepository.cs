@@ -12,12 +12,6 @@ namespace SM.InfractureLayer.Repositories
     {
         public ProductRepository(ApplicationDbContext context) : base(context)
         {
-
-        }
-
-        public ApplicationDbContext DbContext
-        {
-            get { return Context as ApplicationDbContext; }
         }
 
         public override void Add(Product entity)

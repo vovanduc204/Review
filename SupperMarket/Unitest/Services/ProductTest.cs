@@ -39,7 +39,6 @@ namespace Unitest.Services
             });
 
             var mapper = mockMapper.CreateMapper();
-
             controller = new ProductController(mock.Object, mapper);
 
             // Act

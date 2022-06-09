@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IAsyncDisposable
     {
         IOrderRepository OrderRepository { get; }
         ICategoryRepository CategoryRepository { get; }

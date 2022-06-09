@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SM.InfractureLayer.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
         private readonly DbSet<TEntity> _dbSet;

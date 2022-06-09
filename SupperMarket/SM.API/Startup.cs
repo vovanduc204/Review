@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -18,8 +19,10 @@ using SM.DomainLayer.Interfaces.Services;
 using SM.InfractureLayer;
 using SM.InfractureLayer.Extension;
 using SM.InfractureLayer.Repositories;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,10 +42,6 @@ namespace SM.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SM.API", Version = "v1" });
-            //});
 
             // For Entity Framework
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -79,6 +78,13 @@ namespace SM.API
                 };
             });
 
+            // Redis
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var configuration = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -89,10 +95,10 @@ namespace SM.API
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
 
-            //Add AutoMapper
+            // Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
-            //services.AddAutoMapper(typeof(Startup));
+            // services.AddAutoMapper(typeof(Startup));
 
             services.AddCustomSwagger();
 
@@ -104,13 +110,24 @@ namespace SM.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SM.API v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseStaticFiles();
+
+            // Content file
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Content")
+                ),
+                RequestPath = "/content"
+            });
+
+            app.UseHttpsRedirection();
 
             // Authentication & Authorization
             app.UseAuthentication();

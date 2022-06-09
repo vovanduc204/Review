@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using SM.API.Errors;
 using SM.API.Helpers;
 using SM.API.ViewModels;
+using SM.API.ViewModels.Account;
+using SM.API.ViewModels.Token;
 using SM.DomainLayer.Comunication.Response;
 using SM.InfractureLayer;
 using System;
@@ -72,13 +75,24 @@ namespace SM.API.Controllers
             return Unauthorized();
         }
 
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != null;
+        }
+
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
+            if (CheckEmailExistsAsync(model.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email address is in use" } });
+            }
+
             var userExists = await _userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            if (userExists != null) return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "User name already exists!" } });
 
             ApplicationUser user = new()
             {
@@ -87,7 +101,7 @@ namespace SM.API.Controllers
                 UserName = model.Username
             };
             var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
+            if (!result.Succeeded) 
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
@@ -97,6 +111,11 @@ namespace SM.API.Controllers
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterViewModel model)
         {
+            if (CheckEmailExistsAsync(model.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email address is in use" } });
+            }
+
             var userExists = await _userManager.FindByNameAsync(model.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });

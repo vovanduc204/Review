@@ -158,13 +158,35 @@ namespace SM.InfractureLayer.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("SM.DomainLayer.Entities.DeliveryMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("DeliveryTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeliveryMethods");
                 });
 
             modelBuilder.Entity("SM.DomainLayer.Entities.Order", b =>
@@ -172,30 +194,30 @@ namespace SM.InfractureLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("Id")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasMaxLength(10)
-                        .HasColumnType("datetime2")
-                        .HasColumnName("OrderDate");
+                    b.Property<string>("BuyerEmail")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShippingAdress")
+                    b.Property<int?>("DeliveryMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("OrderDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ShippingAdress");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TrackingNumber")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TrackingNumber");
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrackingNumber")
-                        .IsUnique()
-                        .HasFilter("[TrackingNumber] IS NOT NULL");
+                    b.HasIndex("DeliveryMethodId");
 
                     b.ToTable("Orders");
                 });
@@ -205,15 +227,16 @@ namespace SM.InfractureLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("Id")
                         .UseIdentityColumn();
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductId");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -232,16 +255,21 @@ namespace SM.InfractureLayer.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<short>("QuantityInPackage")
-                        .HasColumnType("smallint");
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("UnitOfMeasurement")
-                        .HasColumnType("tinyint");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -260,6 +288,9 @@ namespace SM.InfractureLayer.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -372,28 +403,79 @@ namespace SM.InfractureLayer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SM.DomainLayer.Entities.Order", b =>
+                {
+                    b.HasOne("SM.DomainLayer.Entities.DeliveryMethod", "DeliveryMethod")
+                        .WithMany()
+                        .HasForeignKey("DeliveryMethodId");
+
+                    b.OwnsOne("SM.DomainLayer.Entities.Address", "ShipToAddress", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .UseIdentityColumn();
+
+                            b1.Property<string>("AppUserId")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("City")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FirstName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("Id")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("LastName")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("State")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("ZipCode")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.Navigation("DeliveryMethod");
+
+                    b.Navigation("ShipToAddress");
+                });
+
             modelBuilder.Entity("SM.DomainLayer.Entities.OrderItem", b =>
                 {
                     b.HasOne("SM.DomainLayer.Entities.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.OwnsOne("SM.DomainLayer.ValueObjects.Price", "Price", b1 =>
+                    b.OwnsOne("SM.DomainLayer.Entities.OrderAggregate.ProductItemOrdered", "ItemOrdered", b1 =>
                         {
                             b1.Property<int>("OrderItemId")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
                                 .UseIdentityColumn();
 
-                            b1.Property<int>("Amount")
-                                .HasColumnType("int")
-                                .HasColumnName("Amount");
+                            b1.Property<string>("PictureUrl")
+                                .HasColumnType("nvarchar(max)");
 
-                            b1.Property<int>("Unit")
-                                .HasColumnType("int")
-                                .HasColumnName("Unit");
+                            b1.Property<int>("ProductItemId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ProductName")
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("OrderItemId");
 
@@ -403,23 +485,18 @@ namespace SM.InfractureLayer.Migrations
                                 .HasForeignKey("OrderItemId");
                         });
 
-                    b.Navigation("Price");
+                    b.Navigation("ItemOrdered");
                 });
 
             modelBuilder.Entity("SM.DomainLayer.Entities.Product", b =>
                 {
                     b.HasOne("SM.DomainLayer.Entities.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("SM.DomainLayer.Entities.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("SM.DomainLayer.Entities.Order", b =>

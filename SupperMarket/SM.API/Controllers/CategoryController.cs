@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SM.API.ViewModels;
+using SM.API.ViewModels.Category;
 using SM.DomainLayer.Comunication.Response;
-using SM.DomainLayer.Core.SharedKernel.Models;
 using SM.DomainLayer.Entities;
 using SM.DomainLayer.Interfaces.Services;
 using System;

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SM.API.ViewModels;
+using SM.API.ViewModels.Product;
 using SM.DomainLayer.Comunication.Response;
 using SM.DomainLayer.Core.SharedKernel.Models;
 using SM.DomainLayer.Entities;

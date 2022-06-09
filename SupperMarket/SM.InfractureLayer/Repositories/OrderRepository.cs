@@ -12,7 +12,6 @@ namespace SM.InfractureLayer.Repositories
     {
         public OrderRepository(ApplicationDbContext context) : base(context)
         {
-
         }
 
         public override void Add(Order entity)

@@ -31,7 +31,7 @@ namespace SM.DomainLayer.ValueObjects
         public int Amount { get; protected set; }
 
 
-        public MoneyUnit Unit { get; protected set; } = MoneyUnit.UnSpecified;
+        public MoneyUnit Unit { get; set; } = MoneyUnit.UnSpecified;
 
 
         public bool HasValue

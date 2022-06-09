@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : IAggregateRoot
+    public interface IRepository<TEntity> where TEntity: class
     {
         void Add(TEntity entity);
         void AddSync(params TEntity[] entity);
