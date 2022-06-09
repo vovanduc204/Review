@@ -19,11 +19,8 @@ namespace SM.DomainLayer.ValueObjects
             _symbols = new Dictionary<MoneyUnit, string>
             {
                 { MoneyUnit.UnSpecified, string.Empty },
-
                 { MoneyUnit.Dollar, "$" },
-
                 { MoneyUnit.Euro, "€" },
-
                 { MoneyUnit.Rial, "Rial" },
             };
         }

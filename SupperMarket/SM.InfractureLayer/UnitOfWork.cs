@@ -32,12 +32,10 @@ namespace SM.InfractureLayer
             return await _context.SaveChangesAsync().ConfigureAwait(false);
         }
 
-
         public async Task<int> CompleteAsync(CancellationToken cancellationToken)
         {
             return await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
-
 
         /// <summary>
         /// No matter an exception has been raised or not, this method always will dispose the DbContext 

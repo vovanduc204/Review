@@ -14,13 +14,11 @@ namespace SM.InfractureLayer.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
     {
         protected readonly DbContext Context;
-
         private readonly DbSet<TEntity> _dbSet;
 
         public Repository(DbContext context)
         {
             Context = context;
-
             if (context != null)
             {
                 _dbSet = context.Set<TEntity>();
@@ -131,7 +129,6 @@ namespace SM.InfractureLayer.Repositories
         }
 
 
-
         public virtual async Task<QueryResult<TEntity>> GetOrderedPageQueryResultAsync(QueryObjectParams queryObjectParams, IQueryable<TEntity> query)
         {
             IQueryable<TEntity> OrderedQuery = query;
@@ -152,7 +149,6 @@ namespace SM.InfractureLayer.Repositories
 
             return new QueryResult<TEntity>(await GetPagePrivateQuery(_dbSet, queryObjectParams).ToListAsync().ConfigureAwait(false), totalCount);
         }
-
 
         private IQueryable<TEntity> GetPagePrivateQuery(IQueryable<TEntity> query, QueryObjectParams queryObjectParams)
         {

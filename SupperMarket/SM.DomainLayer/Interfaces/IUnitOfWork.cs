@@ -10,14 +10,10 @@ namespace SM.DomainLayer.Interfaces
     public interface IUnitOfWork
     {
         IOrderRepository OrderRepository { get; }
-
         ICategoryRepository CategoryRepository { get; }
-
         IProductRepository ProductRepository { get; }
 
-
         Task<int> CompleteAsync();
-
         Task<int> CompleteAsync(CancellationToken cancellationToken);
     }
 }

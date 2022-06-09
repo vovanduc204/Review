@@ -15,11 +15,6 @@ namespace SM.InfractureLayer.Repositories
 
         }
 
-        public ApplicationDbContext DbContext
-        {
-            get { return Context as ApplicationDbContext; }
-        }
-
         public override void Add(Order entity)
         {
             // We can override repository virtual methods in order to customize repository behavior, Template Method Pattern
