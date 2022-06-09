@@ -10,4 +10,4 @@ ManageCostomer: Exercise MVC in ASP.NET Web Application
 
 TodoItemDemo: CRUD Demo using InMemoryDatabase in ASP.NET Web API
 
-SupperMarket: Exercise DDD, Automapper, Configuration, Generic, using IQueryable, Extension Document Swagger, Authentication and Authorization in ASP.NET Web API
+SupperMarket: Exercise DDD, Automapper, Configuration, Extension Document Swagger, Generic, using IQueryable, Authentication and Authorization in ASP.NET Web API
