@@ -15,7 +15,7 @@ namespace SM.DomainLayer.Entities
 
         }
         public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail,
-          Address shipToAddress, DeliveryMethod deliveryMethod,
+          OrderAggregate.Address shipToAddress, DeliveryMethod deliveryMethod,
           decimal subtotal, string paymentIntentId)
         {
             BuyerEmail = buyerEmail;
@@ -29,7 +29,7 @@ namespace SM.DomainLayer.Entities
         public int Id { get; private set; }
         public string BuyerEmail { get; private set; }
         public DateTimeOffset OrderDate { get; private set; } = DateTimeOffset.Now;
-        public Address ShipToAddress { get; private set; }
+        public OrderAggregate.Address ShipToAddress { get; private set; }
         public DeliveryMethod DeliveryMethod { get; private set; }
         public IReadOnlyList<OrderItem> OrderItems { get; private set; }
         public decimal Subtotal { get; private set; }

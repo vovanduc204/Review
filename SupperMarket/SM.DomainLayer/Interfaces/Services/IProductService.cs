@@ -12,10 +12,10 @@ namespace SM.DomainLayer.Interfaces.Services
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> ListAsync();
-        Task<Product> SaveAsync(Product product);
-        Task<Product> UpdateAsync(int id, Product product);
-        Task<Product> Delete(int id);
-        Product GetById(int id);
+        Task<IEnumerable<Product>> ListProductsAsync();
+        Product SaveProductAsync(Product product);
+        Task<Product> UpdateProductAsync(int id, Product product);
+        Task<Product> DeleteProduct(int id);
+        Task<Product> GetProductById(int id);
     }
 }

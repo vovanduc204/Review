@@ -11,6 +11,9 @@ namespace SM.DomainLayer.Interfaces.Services
     public interface ICategoryService
     {
         Task<IEnumerable<Category>> ListAsync();
-        Task<Category> SaveAsync(string name);
+        Category SaveCategoryAsync(Category category);
+        Task<Category> UpdateCategoryAsync(int id, Category category);
+        Task<Category> DeleteCategory(int id);
+        Task<Category> GetCategoryById(int id);
     }
 }

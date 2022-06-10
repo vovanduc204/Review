@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SM.API.Errors;
 using SM.API.ViewModels;
 using SM.API.ViewModels.Product;
 using SM.DomainLayer.Comunication.Response;
@@ -31,22 +32,21 @@ namespace SM.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> GetListProducts()
         {
-            var products = await _productService.ListAsync();
-            if (products == null) return NotFound();
-
+            var products = await _productService.ListProductsAsync();
+            if (products == null) return NotFound(new ApiResponse(404));
             var mappedProducts = _mapper.Map<IEnumerable<ProductViewModel>>(products);
-
             return Ok(new QueryResult<ProductViewModel>(mappedProducts, mappedProducts.Count()));
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
+        [ProducesResponseType(typeof(CreateProductViewModel), StatusCodes.Status200OK)]
+        public IActionResult CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
         {
             try
             {
                 var product = _mapper.Map<CreateProductViewModel, Product>(createProductViewModel);
-                var result = await _productService.SaveAsync(product);
+                var result =  _productService.SaveProductAsync(product);
                 return Ok(new Response { Status = "Success", Message = "Product created successfully!" });
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace SM.API.Controllers
         {
             try
             {
-                return Ok(_mapper.Map<ProductViewModel>(_productService.GetById(id)));
+                return Ok(_mapper.Map<ProductViewModel>(_productService.GetProductById(id)));
             }
             catch (Exception ex)
             {
@@ -77,9 +77,20 @@ namespace SM.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] CreateProductViewModel createProductViewModel)
         {
-            var product = _mapper.Map<CreateProductViewModel, Product>(createProductViewModel);
-            await _productService.UpdateAsync(id, product);
-            return Ok(new Response { Status = "Success", Message = "Product updated successfully!" });
+            try
+            {
+                var product = _mapper.Map<CreateProductViewModel, Product>(createProductViewModel);
+                var productExisting = _productService.GetProductById(id);
+                if (productExisting == null) return NotFound(new ApiResponse(404));
+                else await _productService.UpdateProductAsync(id, product);
+                return Ok(new Response { Status = "Success", Message = "Product updated successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return Ok(new CreateProductViewModel());
+            }
+           
         }
 
         [HttpDelete("{id}")]
@@ -87,8 +98,19 @@ namespace SM.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            await _productService.Delete(id);
-            return Ok(new Response { Status = "Success", Message = "Product deleted successfully!" });
+            try
+            {
+                var productExisting = _productService.GetProductById(id);
+                if (productExisting == null) return NotFound(new ApiResponse(404));
+                else await _productService.DeleteProduct(id);
+                return Ok(new Response { Status = "Success", Message = "Product deleted successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return Ok(new ProductViewModel());
+            }
+           
         }
 
     }

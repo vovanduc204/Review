@@ -21,7 +21,7 @@ namespace SM.InfractureLayer.Repositories
         {
             return await _context.Products
                 .Include(p => p.Category)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.CategoryId == id);
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()

@@ -9,6 +9,7 @@ namespace SM.DomainLayer.Interfaces
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
+        IGenericRepository<TEntity> Repository<TEntity>();
         Task<int> CompleteAsync();
         Task<int> CompleteAsync(CancellationToken cancellationToken);
     }

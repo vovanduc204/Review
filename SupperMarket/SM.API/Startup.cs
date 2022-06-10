@@ -85,15 +85,13 @@ namespace SM.API
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
-            //services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            //services.AddScoped<ICategoryService, CategoryService>();
-            //services.AddScoped<IProductService, ProductService>();
-            //services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             // Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -101,6 +99,8 @@ namespace SM.API
             // services.AddAutoMapper(typeof(Startup));
 
             services.AddCustomSwagger();
+
+            services.AddDistributedMemoryCache();
 
         }
 

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Comunication.Response
 {
-    public class CategoryResponse: BaseResponse<Category>
+    public class CategoryResponse: BaseResponse<Product>
     {
-        public CategoryResponse(Category category) : base(category)
+        public CategoryResponse(Product category) : base(category)
         {
 
         }

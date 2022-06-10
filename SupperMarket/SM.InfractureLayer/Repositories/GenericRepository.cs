@@ -46,9 +46,10 @@ namespace SM.InfractureLayer.Repositories
             return SpecificationEvaluator<TEntity>.GetQuery(_context.Set<TEntity>().AsQueryable(), spec);
         }
 
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+            return entity;
         }
 
         public void Update(TEntity entity)

@@ -39,11 +39,31 @@ namespace SM.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CategoryViewModel), 200)]
-        public async Task<IActionResult> CreateCategory([FromBody] CategoryViewModel resource)
+        public IActionResult CreateCategory([FromBody] CategoryViewModel resource)
         {
             var category = _mapper.Map<CategoryViewModel, Category>(resource);
-            var result = await _categoryService.SaveAsync(category.Name);
-            return Ok(new Response { Status = "Success", Message = "Category created successfully!" });
+            var result =  _categoryService.SaveCategoryAsync(category);
+
+            if (result == null) return null;//
+            else return Ok(new Response { Status = "Success", Message = "Category created successfully!" });
+        }
+
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CreateCategoryViewModel categoryViewModel)
+        {
+            var category = _mapper.Map<CreateCategoryViewModel, Category>(categoryViewModel);
+            var result = await _categoryService.UpdateCategoryAsync(id, category);
+            if (result == null) return null;//
+            else return Ok(new Response { Status = "Success", Message = "Category update successfully!" });
+        }
+
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            await _categoryService.DeleteCategory(id);
+            return Ok(new Response { Status = "Success", Message = "Category deleted successfully!" });
         }
     }
 }
