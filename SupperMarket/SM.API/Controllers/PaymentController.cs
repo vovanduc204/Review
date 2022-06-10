@@ -9,6 +9,12 @@ namespace SM.API.Controllers
 {
     public class PaymentController : BaseApiController
     {
+
+        public PaymentController()
+        {
+
+        }
+
         [HttpPost("{basketId}")]
         public async Task<ActionResult> CreateOrUpdatePaymentIntent(string basketId)
         {

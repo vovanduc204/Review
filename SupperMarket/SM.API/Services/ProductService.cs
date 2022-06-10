@@ -33,7 +33,7 @@ namespace SM.API.Services
         public Product SaveProductAsync(Product product)
         {
             _unitOfWork.Repository<Product>().Add(product);
-            _unitOfWork.CompleteAsync();
+            var test = _unitOfWork.CompleteAsync();
             return product;
         }
 

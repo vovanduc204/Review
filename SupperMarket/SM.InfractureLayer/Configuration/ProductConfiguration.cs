@@ -18,7 +18,7 @@ namespace SM.InfractureLayer.Configuration
             builder.Property(p => p.Description).IsRequired();
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
             builder.Property(p => p.PictureUrl).IsRequired();
-            builder.HasOne(p => p.Category).WithMany().HasForeignKey(p => p.CategoryId);
+            builder.HasOne(p => p.Category).WithMany().HasForeignKey(p => p.CategoryId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

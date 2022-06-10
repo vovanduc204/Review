@@ -32,7 +32,7 @@ namespace SM.API.Services
         public Category SaveCategoryAsync(Category category)
         {
             _unitOfWork.Repository<Category>().Add(category);
-            _unitOfWork.CompleteAsync();
+            var test = _unitOfWork.CompleteAsync();
             return category;
         }
 

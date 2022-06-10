@@ -49,7 +49,6 @@ namespace SM.API.Controllers
                 var result =  _productService.SaveProductAsync(product);
                 if (result != null) return Ok(new Response { Status = "Success", Message = "Product created successfully!" });
                 else return Ok(new Response { Status = "Failed", Message = "Failed create product!" });
-
             }
             catch (Exception ex)
             {

@@ -78,7 +78,7 @@ namespace SM.API.Controllers
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
         {
-            if (email == null) return false;
+            if (email == null) return NotFound();
             return await _userManager.FindByEmailAsync(email) != null;
         }
 
