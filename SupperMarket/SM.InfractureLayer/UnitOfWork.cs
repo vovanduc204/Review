@@ -14,20 +14,11 @@ namespace SM.InfractureLayer
     {
         private readonly ApplicationDbContext _context;
 
-        public IOrderRepository OrderRepository { get; private set; }
-
-        public ICategoryRepository CategoryRepository { get; private set; }
-
-        public IProductRepository ProductRepository { get; private set; }
-
         public Hashtable _hasTable;
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            OrderRepository = new OrderRepository(_context);
-            CategoryRepository = new CategoryRepository(_context);
-            ProductRepository = new ProductRepository(_context);
         }
 
         public async Task<int> CompleteAsync()
@@ -57,7 +48,7 @@ namespace SM.InfractureLayer
 
             if (!_hasTable.ContainsKey(type))
             {
-                var repositoryType = typeof(Repository<>);
+                var repositoryType = typeof(GenericRepository<>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _context);
 
                 _hasTable.Add(type, repositoryInstance);

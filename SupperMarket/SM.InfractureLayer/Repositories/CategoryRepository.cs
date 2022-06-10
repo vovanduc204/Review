@@ -8,18 +8,8 @@ using System.Threading.Tasks;
 
 namespace SM.InfractureLayer.Repositories
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CategoryRepository 
     {
-        public CategoryRepository(ApplicationDbContext context) : base(context)
-        {
-        }
-
-        public override void Add(Category entity)
-        {
-            // We can override repository virtual methods in order to customize repository behavior, Template Method Pattern
-            // Code here
-
-            base.Add(entity);
-        }
+        
     }
 }

@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Interfaces
 {
-    public interface IOrderRepository : IRepository<Order>
+    public interface IOrderRepository 
     {
-        public Order Get(int idOrder)
-        {
-            var query = GetAll().FirstOrDefault(b => b.Id == idOrder);
-            return query;
-        }
+       
     }
 }

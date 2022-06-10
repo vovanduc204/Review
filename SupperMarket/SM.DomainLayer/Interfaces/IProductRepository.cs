@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Interfaces
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository
     {
-        public Product GetById(int idProduct)
-        {
-            var query = GetAll().FirstOrDefault(b => b.Id == idProduct);
-            return query;
-        }
+        Task<Product> GetProductByIdAsync(int id);
+        Task<IReadOnlyList<Product>> GetProductsAsync();
     }
 }

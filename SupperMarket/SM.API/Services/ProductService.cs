@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SM.API.Services
 {
-    public class ProductService : IProductService
+    public class ProductService
     {
         private readonly IUnitOfWork _unitOfWork;
         public ProductService(IUnitOfWork unitOfWork)
@@ -20,48 +20,7 @@ namespace SM.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<Product>> ListAsync()
-        {
-            return _unitOfWork.ProductRepository.GetAllAsync();
-        }
-
-        public Product GetById(int id)
-        {
-            return _unitOfWork.ProductRepository.GetById(id);
-        }
-
-        public async Task<Product> SaveAsync(Product product)
-        {
-            await _unitOfWork.ProductRepository.AddAsync(product);
-            await _unitOfWork.CompleteAsync();
-            return product;
-        }
-
-        public async Task<Product> UpdateAsync(int id, Product product)
-        {
-            var existingProduct = await _unitOfWork.ProductRepository.GetByIdAsync(id);
-            var existingCategory = await _unitOfWork.CategoryRepository.GetByIdAsync(product.CategoryId); // if category not found in table will be not update
-            if (existingCategory!=null)
-            {
-                if (existingProduct != null)
-                {
-                    _unitOfWork.ProductRepository.Update(product);
-                    await _unitOfWork.CompleteAsync();
-                }    
-            }      
-            return product;
-        }
-
-        public async Task<Product> Delete(int id)
-        {
-            var existingProduct = await _unitOfWork.ProductRepository.GetByIdAsync(id);
-            _unitOfWork.ProductRepository.Remove(existingProduct);
-
-            await _unitOfWork.CompleteAsync().ConfigureAwait(false);
-
-            return existingProduct;
-
-        }
+       
 
     }
 }

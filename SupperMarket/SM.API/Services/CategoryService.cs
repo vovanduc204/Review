@@ -21,15 +21,12 @@ namespace SM.API.Services
 
         public async Task<IEnumerable<Category>> ListAsync()
         {
-            return await _unitOfWork.CategoryRepository.GetAllAsync();
+            return null;
         }
 
         public async Task<Category> SaveAsync(string name)
         {
-            var _category = new Category(name);
-            _unitOfWork.CategoryRepository.AddSync(_category);
-            await _unitOfWork.CompleteAsync();
-            return _category;
+            return null;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SM.DomainLayer.Interfaces
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface ICategoryRepository 
     {
     }
 }

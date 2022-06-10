@@ -10,7 +10,7 @@ using SM.InfractureLayer;
 namespace SM.InfractureLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220609085740_InitialMigration")]
+    [Migration("20220609164234_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

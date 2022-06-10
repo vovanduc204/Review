@@ -1,4 +1,5 @@
-﻿using SM.DomainLayer.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SM.DomainLayer.Entities;
 using SM.DomainLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,26 @@ using System.Threading.Tasks;
 
 namespace SM.InfractureLayer.Repositories
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class ProductRepository : IProductRepository
     {
-        public ProductRepository(ApplicationDbContext context) : base(context)
+        private readonly ApplicationDbContext _context;
+        public ProductRepository(ApplicationDbContext context)
         {
+            _context = context;
         }
 
-        public override void Add(Product entity)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            // We can override repository virtual methods in order to customize repository behavior, Template Method Pattern
-            // Code here
-
-            base.Add(entity);
+            return await _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-      
+        public async Task<IReadOnlyList<Product>> GetProductsAsync()
+        {
+            return await _context.Products
+                .Include(p => p.Category)
+                .ToListAsync();
+        }
     }
 }
