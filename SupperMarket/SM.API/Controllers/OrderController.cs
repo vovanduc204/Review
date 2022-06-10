@@ -32,27 +32,24 @@ namespace SM.API.Controllers
         public async Task<ActionResult<OrderReturnViewModel>> GetOrderByIdForUser(int id)
         {
             var email = User.RetrieveEmailFromPrincipal();
-
             var order = await _orderService.GetOrderByIdAsync(id, email);
-
             if (order == null) return NotFound(new ApiResponse(404));
-
             return _mapper.Map<OrderReturnViewModel>(order);
         }
 
-        [HttpGet]
+        [HttpGet("GetListOrders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetListOrders()
         {
             var listOrders = await _orderService.ListOrdersAsync();
             if (listOrders == null) return NotFound(new ApiResponse(404));
-            var resultOrders = _mapper.Map<IEnumerable<OrderViewModel>>(listOrders);
+            var resultOrders = _mapper.Map<IEnumerable<OrderReturnViewModel>>(listOrders);
             return Ok(resultOrders);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<OrderViewModel>>> GetOrdersForUser()
+        [HttpGet("GetOrdersForUser")]
+        public async Task<ActionResult<IReadOnlyList<OrderReturnViewModel>>> GetOrdersForUser()
         {
             var email = User.RetrieveEmailFromPrincipal();
             var orders = await _orderService.GetOrdersForUserAsync(email);

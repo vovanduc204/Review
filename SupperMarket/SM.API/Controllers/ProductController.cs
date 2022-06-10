@@ -26,7 +26,7 @@ namespace SM.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetListProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -47,7 +47,9 @@ namespace SM.API.Controllers
             {
                 var product = _mapper.Map<CreateProductViewModel, Product>(createProductViewModel);
                 var result =  _productService.SaveProductAsync(product);
-                return Ok(new Response { Status = "Success", Message = "Product created successfully!" });
+                if (result != null) return Ok(new Response { Status = "Success", Message = "Product created successfully!" });
+                else return Ok(new Response { Status = "Failed", Message = "Failed create product!" });
+
             }
             catch (Exception ex)
             {
@@ -110,7 +112,6 @@ namespace SM.API.Controllers
                 Debug.WriteLine(ex);
                 return Ok(new ProductViewModel());
             }
-           
         }
 
     }

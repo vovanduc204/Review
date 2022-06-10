@@ -85,6 +85,7 @@ namespace SM.API
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -92,6 +93,7 @@ namespace SM.API
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             // Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));

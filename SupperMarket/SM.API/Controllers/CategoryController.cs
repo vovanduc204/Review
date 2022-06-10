@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SM.API.Errors;
 using SM.API.ViewModels.Category;
 using SM.DomainLayer.Comunication.Response;
 using SM.DomainLayer.Entities;
@@ -44,7 +45,7 @@ namespace SM.API.Controllers
             var category = _mapper.Map<CategoryViewModel, Category>(resource);
             var result =  _categoryService.SaveCategoryAsync(category);
 
-            if (result == null) return null;//
+            if (result == null) return NotFound(new ApiResponse(404));
             else return Ok(new Response { Status = "Success", Message = "Category created successfully!" });
         }
 
@@ -56,10 +57,11 @@ namespace SM.API.Controllers
         {
             var category = _mapper.Map<CreateCategoryViewModel, Category>(categoryViewModel);
             var result = await _categoryService.UpdateCategoryAsync(id, category);
-            if (result == null) return null;//
+            if (result == null) return NotFound(new ApiResponse(404));
             else return Ok(new Response { Status = "Success", Message = "Category update successfully!" });
         }
 
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             await _categoryService.DeleteCategory(id);

@@ -8,15 +8,18 @@ namespace SM.DomainLayer.Entities
 {
     public class BasketItem
     {
-        public BasketItem(int id, string productName, decimal price, int quantity, string pictureUrl, string brand, string type)
+        public BasketItem(int id, string productName, decimal price, int quantity, string pictureUrl, string category)
         {
             Id = id;
             ProductName = productName;
             Price = price;
             Quantity = quantity;
             PictureUrl = pictureUrl;
-            Brand = brand;
-            Type = type;
+            Category = category;
+        }
+
+        public BasketItem()
+        {
         }
 
         public int Id { get; private set; }
@@ -24,7 +27,6 @@ namespace SM.DomainLayer.Entities
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
         public string PictureUrl { get; private set; }
-        public string Brand { get; private set; }
-        public string Type { get; private set; }
+        public string Category { get; private set; }
     }
 }

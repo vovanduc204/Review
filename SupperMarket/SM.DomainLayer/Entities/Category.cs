@@ -22,5 +22,9 @@ namespace SM.DomainLayer.Entities
             Id = id;
             Name = name;
         }
+        public Category()
+        {
+
+        }
     }
 }

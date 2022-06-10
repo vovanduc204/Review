@@ -2,6 +2,10 @@ namespace SM.DomainLayer.Entities
 {
     public class Product 
     {
+        public Product()
+        {
+
+        }
         public Product(string name, string description, decimal price, string pictureUrl, Category category, int categoryId)
         {
             Name = name;

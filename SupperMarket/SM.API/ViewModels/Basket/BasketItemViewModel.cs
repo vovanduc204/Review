@@ -27,9 +27,7 @@ namespace SM.API.ViewModels.Basket
         public string PictureUrl { get; set; }
 
         [Required]
-        public string Brand { get; set; }
+        public string Category { get; set; }
 
-        [Required]
-        public string Type { get; set; }
     }
 }
