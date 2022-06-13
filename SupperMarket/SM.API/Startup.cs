@@ -86,7 +86,6 @@ namespace SM.API
             });
 
             services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
