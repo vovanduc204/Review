@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SM.DomainLayer.Core.Extensions;
 using SM.DomainLayer.Entities;
 using SM.DomainLayer.Interfaces;
 using System;
@@ -9,12 +10,22 @@ using System.Threading.Tasks;
 
 namespace SM.InfractureLayer.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository<Product>
     {
         private readonly ApplicationDbContext _context;
         public ProductRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public IQueryable<Product> FindAll()
+        {
+            return _context.Products.ToList().AsQueryable();
+        }
+
+        public Task<PaginatedList<Product>> GetListPage(PagingParameter pagingParameters)
+        {
+            return Task.FromResult(PaginatedList<Product>.GetPagedList(FindAll().OrderBy(s=>s.Id),pagingParameters.PageNumber,pagingParameters.PageSize));
         }
 
         //public async Task<Product> GetProductByIdAsync(int id)

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using SM.DomainLayer.Core.Extensions;
 using SM.DomainLayer.Interfaces;
 using SM.DomainLayer.Specifications;
 
@@ -62,5 +63,7 @@ namespace SM.InfractureLayer.Repositories
         {
             _context.Set<TEntity>().Remove(entity);
         }
+
+     
     }
 }

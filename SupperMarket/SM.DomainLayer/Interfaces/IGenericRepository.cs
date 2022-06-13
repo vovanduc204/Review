@@ -1,4 +1,5 @@
-﻿using SM.DomainLayer.Specifications;
+﻿using SM.DomainLayer.Core.Extensions;
+using SM.DomainLayer.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace SM.DomainLayer.Interfaces
         T Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+       
     }
 }
